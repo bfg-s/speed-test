@@ -1,0 +1,34 @@
+{
+    "name": "bfg/speed-test",
+    "description": "",
+    "type": "bfg-app",
+    "keywords": ["laravel", "extension", "speed-test"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "bfg"
+        }
+    ],
+    "prefer-stable": true,
+    "require": {
+        "php": ">=8.0.0",
+        "bfg/installer": "*",
+        "bfg/entity": "^1.1.11"
+    },
+    "require-dev": {},
+    "autoload": {
+        "psr-4": {
+            "Bfg\\SpeedTest\\": "src/"
+        },
+        "files": [
+            "src/helpers.php"
+        ]
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Bfg\\SpeedTest\\ServiceProvider"
+            ]
+        }
+    }
+}

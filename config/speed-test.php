@@ -1,0 +1,1 @@
+<?phpreturn [    'dir' => base_path('tests/Speeds'),    'namespace' => 'Tests\\Speeds'];
