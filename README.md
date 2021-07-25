@@ -15,6 +15,10 @@ And launch the test:
 php artisan speed:test bcrypt
 ```
 
+## Config publish
+```bash
+php artisan vendor:publish --tag=speed-test
+```
 ## Commands
 
 ### make:speed-test
@@ -31,6 +35,8 @@ Options:
   -t, --times[=TIMES]              Number of iterations [default: "10"]
   -l, --line[=LINE]                Code line in the icted function [default: "//"]
 ```
+Your test will be created in the `tests/Speeds` folder, 
+you can change this in config `speed-test.dir`.
 > Meaning Description and the number of 
 > iterations are indicated in the dock of the test block.
 
