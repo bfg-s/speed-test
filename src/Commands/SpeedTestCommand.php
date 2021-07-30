@@ -97,6 +97,17 @@ class SpeedTestCommand extends Command
 
             $meter->set(['call_tik' => fn () => $bar->advance()]);
 
+            $meter->set([
+                'throw' => function (\Throwable $throwable) {
+
+                    if ($this->option('verbose')) {
+                        throw $throwable;
+                    } else {
+                        $this->error($throwable->getMessage());
+                    }
+                }
+            ]);
+
             $meter->start([$item['class_instance'], $item['name']]);
 
             $bar->finish();

@@ -3,6 +3,11 @@
 Designed for approximate estimation of the time of code 
 execution by the number of iterations.
 
+## Install
+```bash
+composer require bfg/speed-test --dev
+```
+
 ## Create speed check
 Suppose that we need to check how long it will work out the `bcrypt` 
 password encryption function.
