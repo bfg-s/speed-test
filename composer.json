@@ -2,7 +2,7 @@
     "name": "bfg/speed-test",
     "description": "Designed for approximate estimation of the time of code execution by the number of iterations",
     "type": "bfg-app",
-    "keywords": ["laravel", "extension", "speed-test"],
+    "keywords": ["laravel", "extension", "speed-test", "benchmark"],
     "license": "MIT",
     "authors": [
         {

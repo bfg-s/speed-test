@@ -1,1 +1,1 @@
-<?phpreturn [    'dir' => base_path('tests/Speeds'),    'namespace' => 'Tests\\Speeds'];
+<?phpreturn [    'dir' => base_path('tests/Benchmark'),    'namespace' => 'Tests\\Benchmark'];

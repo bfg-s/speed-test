@@ -15,7 +15,7 @@ class MakeTestCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'make:speed-test {test? : The test name}
+    protected $signature = 'make:bench {test? : The test name}
         {--d|description= : The description of test}
         {--t|times=10 : Number of iterations}
         {--l|line=// : Code line in the icted function}';
