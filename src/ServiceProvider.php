@@ -3,20 +3,28 @@
 namespace Bfg\SpeedTest;
 
 use Bfg\Installer\Providers\InstalledProvider;
-use Bfg\SpeedTest\Commands\MakeTestCommand;
-use Bfg\SpeedTest\Commands\SpeedTestCommand;
+use Bfg\SpeedTest\Commands\MakeBenchmarkCommand;
+use Bfg\SpeedTest\Commands\BenchmarkCommand;
+use Bfg\SpeedTest\Commands\SpeedWatcherCommand;
+use Bfg\SpeedTest\Server\Connection;
+use Bfg\SpeedTest\Server\WatcherServer;
 
 /**
- * Class ServiceProvider
+ * Class ServiceProvider.
  * @package Bfg\SpeedTest
  */
 class ServiceProvider extends InstalledProvider
 {
     /**
-     * The description of extension.
-     * @var string|null
+     * The connection to the watcher server
+     * @var Connection|null
      */
-    public ?string $description = "Speed check tool";
+    static protected ?Connection $connection = null;
+
+    /**
+     * @var array
+     */
+    static public array $points = [];
 
     /**
      * Set as installed by default.
@@ -36,9 +44,22 @@ class ServiceProvider extends InstalledProvider
         );
 
         $this->commands([
-            MakeTestCommand::class,
-            SpeedTestCommand::class
+            MakeBenchmarkCommand::class,
+            BenchmarkCommand::class,
+            SpeedWatcherCommand::class,
         ]);
+
+        register_shutdown_function(function () {
+            if (static::$points && config('speed-test.watcher_host')) {
+                static::$connection = new Connection(
+                    config('speed-test.watcher_host')
+                );
+                foreach (static::$points as $point) {
+                    static::$connection->write($point);
+                }
+                static::$connection->write(app(PointSeparator::class));
+            }
+        });
     }
 
     /**
@@ -53,4 +74,3 @@ class ServiceProvider extends InstalledProvider
         ], 'speed-test');
     }
 }
-

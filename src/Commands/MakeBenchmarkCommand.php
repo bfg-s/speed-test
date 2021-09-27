@@ -8,7 +8,7 @@ use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
 
-class MakeTestCommand extends Command
+class MakeBenchmarkCommand extends Command
 {
     /**
      * The name and signature of the console command.
@@ -59,20 +59,19 @@ class MakeTestCommand extends Command
             ->line($this->option('line'))->doc(function ($doc) use ($className) {
                 /** @var DocumentorEntity $doc */
                 $doc->tagCustom('times', $this->option('times'));
-                $doc->description($this->option("description") ?: "{$className} Speed 1");
+                $doc->description($this->option('description') ?: "{$className} Speed 1");
             });
 
-        if (!is_dir($dir)) {
-
+        if (! is_dir($dir)) {
             mkdir($dir, 0777, 1);
         }
 
         file_put_contents(
-            $dir . '/' . $className . '.php',
+            $dir.'/'.$className.'.php',
             $class->wrap('php')
         );
 
-        $this->info("Speed created!");
+        $this->info('Speed created!');
 
         return 0;
     }

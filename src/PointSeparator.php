@@ -1,0 +1,1 @@
+<?phpnamespace Bfg\SpeedTest;class PointSeparator extends Point{    public function __construct() {        parent::__construct(url()->full());    }}

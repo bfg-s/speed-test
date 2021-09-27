@@ -146,3 +146,60 @@ Assoc
 | text@assoc | Assoc       | 1     | 0.0022 | 0.002238 sec | 1.078125 kb | 1.078125 kb | 0          |
 +------------+-------------+-------+-----------------------+---------------------------+------------+
 ```
+
+# Bench points
+To start the server, use the command:
+```bash
+php artisan speed:watcher
+```
+And all you have left is to put "bpoint" in the order in 
+which you need in the code, for example in controllers:
+```php
+class UserController extends Controller
+{
+    ...
+    
+    #[Get('/auth')]
+    public function index(Request $request)
+    {
+        bpoint('Auth start');
+
+        \Auth::loginUsingId(1, true);
+
+        bpoint('Update user');
+
+        \Auth::user()->touch();
+
+        bpoint('Before return');
+        
+        return 'ok';
+    }
+    
+    ...
+}
+```
+And in the server console you will see:
+```bash
+ ---------- ----------------------------------------- 
+  File       app/Http/Controllers/HomeController.php  
+  Time       21:10:35.304829                          
+  Message    Auth start                               
+  Diff sec   0                                        
+ ---------- ----------------------------------------- 
+
+ ---------- ----------------------------------------- 
+  File       app/Http/Controllers/HomeController.php  
+  Time       21:10:35.310332                          
+  Message    Update user                              
+  Diff sec   0.0055                                   
+ ---------- ----------------------------------------- 
+
+ ---------- ----------------------------------------- 
+  File       app/Http/Controllers/HomeController.php  
+  Time       21:10:35.327846                          
+  Message    Before return                            
+  Diff sec   0.0175                                   
+ ---------- ----------------------------------------- 
+
+https://example.dev/auth
+```
