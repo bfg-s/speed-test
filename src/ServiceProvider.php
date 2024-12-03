@@ -2,18 +2,17 @@
 
 namespace Bfg\SpeedTest;
 
-use Bfg\Installer\Providers\InstalledProvider;
 use Bfg\SpeedTest\Commands\MakeBenchmarkCommand;
 use Bfg\SpeedTest\Commands\BenchmarkCommand;
 use Bfg\SpeedTest\Commands\SpeedWatcherCommand;
 use Bfg\SpeedTest\Server\Connection;
-use Bfg\SpeedTest\Server\WatcherServer;
+use Illuminate\Support\ServiceProvider as IlluminateServiceProvider;
 
 /**
  * Class ServiceProvider.
  * @package Bfg\SpeedTest
  */
-class ServiceProvider extends InstalledProvider
+class ServiceProvider extends IlluminateServiceProvider
 {
     /**
      * The connection to the watcher server
@@ -27,17 +26,10 @@ class ServiceProvider extends InstalledProvider
     static public array $points = [];
 
     /**
-     * Set as installed by default.
-     * @var bool
-     */
-    public bool $installed = true;
-
-    /**
-     * Executed when the provider is registered
-     * and the extension is installed.
+     * Register route settings.
      * @return void
      */
-    public function installed(): void
+    public function register(): void
     {
         $this->mergeConfigFrom(
             __DIR__.'/../config/speed-test.php', 'speed-test'
@@ -63,11 +55,10 @@ class ServiceProvider extends InstalledProvider
     }
 
     /**
-     * Executed when the provider run method
-     * "boot" and the extension is installed.
+     * Bootstrap services.
      * @return void
      */
-    public function run(): void
+    public function boot(): void
     {
         $this->publishes([
             __DIR__.'/../config/speed-test.php' => config_path('speed-test.php'),
