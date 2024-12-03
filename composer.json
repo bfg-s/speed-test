@@ -12,7 +12,8 @@
     "prefer-stable": true,
     "require": {
         "php": "^8.0",
-        "bfg/entity": "^1.1.11"
+        "bfg/entity": "^1.1.11",
+        "illuminate/contracts": "*"
     },
     "require-dev": {},
     "autoload": {
